@@ -1,199 +1,272 @@
 import './style.css'
 
 const baseUrl = import.meta.env.BASE_URL
+const workflowGif = `${baseUrl}screenshots/main-viewer.gif`
 
 const screenshots = [
-  { src: `${baseUrl}screenshots/main-viewer.png`, title: 'Main Diagnostic Viewer' },
-  { src: `${baseUrl}screenshots/mpr-viewer.png`, title: 'MPR Workspace' },
-  { src: `${baseUrl}screenshots/3D%20Viewer%20-%20Bone.png`, title: 'VTK Bone Volume Viewer' },
-  { src: `${baseUrl}screenshots/ai-dock.png`, title: 'AI Assistant Dock' },
+  {
+    src: `${baseUrl}screenshots/main-viewer.png`,
+    title: 'Main DICOM viewer',
+    text: 'Primary VTK slice viewing workflow with study context, viewer tools, and annotation panels.',
+  },
+  {
+    src: `${baseUrl}screenshots/mpr-viewer.png`,
+    title: 'MPR workspace',
+    text: 'Multi-planar review path under active verification for geometry, spacing, and clinical-correctness evidence.',
+  },
+  {
+    src: `${baseUrl}screenshots/3D%20Viewer%20-%20Bone.png`,
+    title: '3D volume viewer',
+    text: 'VTK-based 3D rendering direction for CT volume visualization and future controlled expansion.',
+  },
 ]
 
-const features = [
+const capabilityGroups = [
   {
-    title: 'Diagnostic 2D Viewer',
-    text: 'Browse studies quickly with window/level, measurements, cine controls, and a responsive DICOM viewing workflow.',
+    title: 'Viewing',
+    items: [
+      'DICOM file and folder import',
+      'Main 2D VTK slice viewer',
+      'DICOM-derived WL/WW defaults with controlled fallback presets',
+      'Zoom, pan, slice/frame navigation, and crosshair workflows',
+    ],
   },
   {
-    title: 'MPR and 3D Pipeline',
-    text: 'Build diagnostic volumes from full-fidelity series data and extend into MPR, surface extraction, and VTK-based volume rendering.',
+    title: 'Measurements',
+    items: [
+      'Distance, polyline, angle, and rectangle ROI baseline',
+      'Per-slice and per-frame annotation persistence',
+      'Annotation deletion and review workflows under verification',
+      'Clinical correctness evidence tracked under CAPA-002',
+    ],
   },
   {
-    title: 'Scalable Architecture',
-    text: 'Separate lightweight browsing data from diagnostic series loading so the viewer remains practical even with large patient libraries.',
+    title: 'Advanced Review',
+    items: [
+      'MPR viewing path under active geometry verification',
+      'VTK 3D volume viewing path under active maturation',
+      'Multi-frame XA cine viewing under representative dataset testing',
+      'HU statistics and calcium workflow remain planned, not release-claimed',
+    ],
   },
   {
-    title: 'AI-Ready Workflow',
-    text: 'Attach the current diagnostic image context to assistant workflows without conflating preview imagery and diagnostic rendering.',
+    title: 'Quality Foundation',
+    items: [
+      'Local SQLite persistence with no desktop database credentials',
+      'Original DICOM files remain unmodified',
+      'Audit, crash-log, and CAPA documentation foundation started',
+      'Malformed DICOM handling tracked under CAPA-001',
+    ],
   },
+]
+
+const statusRows = [
+  ['Product name', 'Cross Axial Dicom Viewer'],
+  ['Current stage', 'Pre-release demo baseline under development'],
+  ['Current use boundary', 'Education, research, and controlled product evaluation only'],
+  ['Regulatory status', 'Not approved for diagnosis or treatment'],
+  ['Current storage', 'Local SQLite metadata, previews, and derived annotations'],
+  ['Source DICOM policy', 'Original DICOM files are treated as canonical input and are not modified'],
 ]
 
 const stack = [
   'C++20',
   'Qt 6',
   'VTK',
-  'Future ITK',
-  'PostgreSQL',
   'GDCM',
-  'OpenCV',
-  'Cross-platform desktop design',
-]
-
-const milestones = [
-  'Lazy hierarchy loading for large datasets',
-  'Series-level previews instead of per-slice preview bloat',
-  'Background import with progress reporting',
-  'MPR workflow from diagnostic volume data',
-  'VTK volume-rendering integration for long-term 3D growth',
+  'SQLite',
+  'CMake',
+  'Vite',
 ]
 
 const roadmap = [
-  'VTK-based MPR viewer to unify advanced 2D and 3D rendering',
-  'Volume-render preprocessing service expansion for bone, lung, and future organ presets',
-  'ITK-backed segmentation and label-volume workflows',
-  'Multi-structure rendering and organ-specific presets',
-  'Product hardening toward professional medical imaging software expectations',
+  {
+    phase: 'REL-001 demo baseline',
+    target: 'Target: 2026-05-31',
+    text: 'Stabilize non-diagnostic viewer workflows, package Windows/macOS builds, and record known limitations.',
+  },
+  {
+    phase: 'Verification foundation',
+    target: 'Next gate',
+    text: 'Complete measurement/MPR correctness tests, corrupted DICOM handling tests, and representative XA cine checks.',
+  },
+  {
+    phase: 'Regulatory foundation',
+    target: 'After demo feedback',
+    text: 'Harden SRS, risk controls, CAPA, release evidence, user manual, and traceability before regulated claims.',
+  },
 ]
 
 document.querySelector('#app').innerHTML = `
-  <div class="page-shell">
-    <header class="hero">
-      <nav class="topbar">
-        <div class="brand-block">
-          <span class="eyebrow">Medical Imaging Software</span>
-          <span class="brand">DicomViewer</span>
-        </div>
-        <div class="actions">
-          <a class="button button-secondary" href="#screenshots">Screenshots</a>
-          <a class="button button-primary" href="https://github.com/Gokulakrishh/DicomViewer" target="_blank" rel="noreferrer">GitHub</a>
+  <div class="site-shell">
+    <header
+      class="hero"
+      aria-labelledby="page-title"
+      style="background-image: linear-gradient(90deg, rgba(9, 20, 35, 0.92) 0%, rgba(9, 20, 35, 0.74) 43%, rgba(9, 20, 35, 0.24) 100%), url('${baseUrl}screenshots/main-viewer.png')"
+    >
+      <nav class="topbar" aria-label="Primary">
+        <a class="brand-lockup" href="#top" aria-label="Cross Axial Dicom Viewer home">
+          <img src="${baseUrl}cross-axial-icon.png" alt="" />
+          <span>
+            <strong>Cross Axial Dicom Viewer</strong>
+            <small>DICOM viewer under controlled development</small>
+          </span>
+        </a>
+        <div class="nav-actions">
+          <a href="#status">Status</a>
+          <a href="#screenshots">Screenshots</a>
+          <a class="button button-light" href="https://github.com/Gokulakrishh/DicomViewer" target="_blank" rel="noreferrer">GitHub</a>
         </div>
       </nav>
 
-      <section class="hero-grid">
-        <div class="hero-copy">
-          <span class="eyebrow">Professional-grade foundation</span>
-          <h1>Desktop DICOM viewing built for diagnostic workflows, MPR, and long-term 3D growth.</h1>
-          <p class="lead">
-            DicomViewer is a C++/Qt medical imaging application focused on diagnostic rendering,
-            scalable data loading, and a rendering architecture that can grow into serious VTK and ITK workflows.
-          </p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="https://github.com/Gokulakrishh/DicomViewer" target="_blank" rel="noreferrer">Open Repository</a>
-            <a class="button button-secondary" href="#architecture">Read Architecture</a>
-          </div>
-          <ul class="meta-list">
-            <li>Desktop-first medical imaging workflow</li>
-            <li>Diagnostic series loading and raw-pixel rendering</li>
-            <li>VTK direction for long-term 3D and MPR</li>
-          </ul>
+      <div class="hero-content" id="top">
+        <p class="eyebrow">Local-first DICOM viewing software</p>
+        <h1 id="page-title">Cross Axial Dicom Viewer</h1>
+        <p class="hero-lead">
+          A C++/Qt and VTK-based DICOM viewer focused on controlled development, memory-aware workflows,
+          local SQLite persistence, and a clear path toward SaMD-ready engineering evidence.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="https://github.com/Gokulakrishh/DicomViewer" target="_blank" rel="noreferrer">Open Repository</a>
+          <a class="button button-secondary" href="#screenshots">View Screenshots</a>
         </div>
-
-        <div class="hero-panel">
-          <div class="hero-panel-card">
-            <span class="panel-label">Current Product Direction</span>
-            <h2>Clinical viewer foundation with a rendering stack that can mature over years, not months.</h2>
-            <div class="stats-grid">
-              <div>
-                <span class="stat-label">Core Viewer</span>
-                <strong>2D + MPR</strong>
-              </div>
-              <div>
-                <span class="stat-label">3D Direction</span>
-                <strong>VTK Volume Rendering</strong>
-              </div>
-              <div>
-                <span class="stat-label">Segmentation Space</span>
-                <strong>Future ITK</strong>
-              </div>
-              <div>
-                <span class="stat-label">Audience</span>
-                <strong>Radiology Software Engineering</strong>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      </div>
     </header>
 
     <main>
+      <section class="notice-band" aria-label="Regulatory notice">
+        <strong>Important boundary:</strong>
+        This software is currently intended for education, research, and controlled evaluation only.
+        It is not approved for diagnosis, treatment, clinical decision-making, or regulatory-certified use.
+      </section>
+
+      <section class="section workflow-section" id="workflow">
+        <div class="workflow-copy">
+          <p class="eyebrow">Workflow preview</p>
+          <h2>See the viewer in motion</h2>
+          <p>
+            A short animated preview helps communicate the desktop workflow better than static screenshots alone:
+            study browsing, image viewing, and interaction panels in the current baseline.
+          </p>
+        </div>
+        <figure class="workflow-media">
+          <img src="${workflowGif}" alt="Animated preview of Cross Axial Dicom Viewer workflow" loading="lazy" />
+          <figcaption>Current non-diagnostic viewer workflow preview.</figcaption>
+        </figure>
+      </section>
+
+      <section class="section" id="status">
+        <div class="section-head">
+          <p class="eyebrow">Current development status</p>
+          <h2>Pre-release baseline with explicit claim boundaries</h2>
+          <p>
+            The project is being developed as local-first DICOM viewing software. The current public-facing position
+            avoids unsupported diagnostic, PACS, AI, or cybersecurity claims while QMS-style evidence matures.
+          </p>
+        </div>
+
+        <div class="status-grid">
+          <table class="status-table">
+            <tbody>
+              ${statusRows.map(([label, value]) => `
+                <tr>
+                  <th>${label}</th>
+                  <td>${value}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+
+          <div class="quality-panel">
+            <p class="panel-kicker">Quality controls in progress</p>
+            <h3>CAPA and verification gates are now part of the development record.</h3>
+            <ul>
+              <li>CAPA-001 tracks malformed or corrupted DICOM decode handling.</li>
+              <li>CAPA-002 tracks missing clinical correctness evidence for measurements and MPR.</li>
+              <li>REL-001 remains non-diagnostic unless evidence and claims are formally updated.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
       <section class="section" id="screenshots">
         <div class="section-head">
-          <span class="eyebrow">Screenshots</span>
-          <h2>Current application views</h2>
-          <p>Real screenshots from the running application, not mockups.</p>
+          <p class="eyebrow">Application views</p>
+          <h2>Real screenshots from the current viewer</h2>
+          <p>
+            These images show the active desktop application direction: main viewing, MPR review, and VTK 3D rendering.
+          </p>
         </div>
         <div class="gallery-grid">
           ${screenshots.map((shot) => `
             <figure class="shot-card">
               <img src="${shot.src}" alt="${shot.title}" />
-              <figcaption>${shot.title}</figcaption>
+              <figcaption>
+                <strong>${shot.title}</strong>
+                <span>${shot.text}</span>
+              </figcaption>
             </figure>
           `).join('')}
         </div>
       </section>
 
-      <section class="section" id="features">
+      <section class="section" id="capabilities">
         <div class="section-head">
-          <span class="eyebrow">Capabilities</span>
-          <h2>Built around diagnostic correctness first</h2>
-          <p>The product architecture separates preview paths, diagnostic rendering paths, and long-term rendering integration points.</p>
+          <p class="eyebrow">Product scope</p>
+          <h2>Built around separable viewer, annotation, and quality layers</h2>
+          <p>
+            The current architecture keeps source DICOM data separate from derived annotations and avoids loading heavy
+            pixel data during hierarchy browsing wherever possible.
+          </p>
         </div>
-        <div class="feature-grid">
-          ${features.map((feature) => `
-            <article class="feature-card">
-              <h3>${feature.title}</h3>
-              <p>${feature.text}</p>
+        <div class="capability-grid">
+          ${capabilityGroups.map((group) => `
+            <article class="capability-card">
+              <h3>${group.title}</h3>
+              <ul>
+                ${group.items.map((item) => `<li>${item}</li>`).join('')}
+              </ul>
             </article>
           `).join('')}
         </div>
       </section>
 
-      <section class="section split-section" id="architecture">
-        <div>
-          <span class="eyebrow">Architecture</span>
-          <h2>Engineering choices made for growth</h2>
+      <section class="section technology-section" id="architecture">
+        <div class="section-head">
+          <p class="eyebrow">Architecture</p>
+          <h2>Current technical stack</h2>
           <p>
-            The viewer uses lightweight hierarchy browsing for scale, upgrades to diagnostic series for raw-pixel workflows,
-            and is now moving toward VTK as the long-term rendering module while leaving room for future ITK-based segmentation.
+            The desktop baseline uses Qt and VTK for viewing, GDCM for DICOM handling, and SQLite for local metadata,
+            preview, and derived annotation persistence.
           </p>
         </div>
-        <div class="pill-group">
-          ${stack.map((item) => `<span class="pill">${item}</span>`).join('')}
+        <div class="stack-list">
+          ${stack.map((item) => `<span>${item}</span>`).join('')}
         </div>
       </section>
 
-      <section class="section dual-columns">
-        <article class="panel-card">
-          <span class="eyebrow">Current Milestones</span>
-          <h2>What is already working</h2>
-          <ul class="plain-list">
-            ${milestones.map((item) => `<li>${item}</li>`).join('')}
-          </ul>
-        </article>
-        <article class="panel-card">
-          <span class="eyebrow">Awaiting Features</span>
-          <h2>What comes next</h2>
-          <ul class="plain-list">
-            ${roadmap.map((item) => `<li>${item}</li>`).join('')}
-          </ul>
-        </article>
+      <section class="section roadmap-section" id="roadmap">
+        <div class="section-head">
+          <p class="eyebrow">Roadmap</p>
+          <h2>Next gates before broader release</h2>
+        </div>
+        <div class="roadmap-list">
+          ${roadmap.map((item) => `
+            <article>
+              <p>${item.target}</p>
+              <h3>${item.phase}</h3>
+              <span>${item.text}</span>
+            </article>
+          `).join('')}
+        </div>
       </section>
 
-      <section class="section cta-section">
-        <div class="cta-card">
-          <div>
-            <span class="eyebrow">Open Source Project</span>
-            <h2>Explore the codebase and follow the product direction.</h2>
-            <p>
-              The project is evolving from a Qt-based medical image viewer into a longer-term platform with VTK rendering
-              and room for future ITK segmentation workflows.
-            </p>
-          </div>
-          <div class="cta-actions">
-            <a class="button button-primary" href="https://github.com/Gokulakrishh/DicomViewer" target="_blank" rel="noreferrer">View on GitHub</a>
-            <a class="button button-secondary" href="#screenshots">See Screenshots</a>
-          </div>
+      <section class="closing-panel">
+        <div>
+          <p class="eyebrow">Engineering baseline</p>
+          <h2>Follow the release evidence as the project matures.</h2>
         </div>
+        <a class="button button-primary" href="https://github.com/Gokulakrishh/DicomViewer" target="_blank" rel="noreferrer">View on GitHub</a>
       </section>
     </main>
   </div>
