@@ -7,93 +7,94 @@ const screenshots = [
   {
     src: `${baseUrl}screenshots/main-viewer.png`,
     title: 'Main DICOM viewer',
-    text: 'Primary VTK slice viewing workflow with study context, viewer tools, and annotation panels.',
+    text: 'Patient, study, and series browsing with a focused slice viewer, WL/WW controls, and annotation panels.',
   },
   {
     src: `${baseUrl}screenshots/mpr-viewer.png`,
     title: 'MPR workspace',
-    text: 'Multi-planar review path under active verification for geometry, spacing, and clinical-correctness evidence.',
+    text: 'Axial, coronal, and sagittal review for CT/MR series, with geometry verification still in progress.',
   },
   {
     src: `${baseUrl}screenshots/3D%20Viewer%20-%20Bone.png`,
     title: '3D volume viewer',
-    text: 'VTK-based 3D rendering direction for CT volume visualization and future controlled expansion.',
+    text: 'Volume visualization direction for CT datasets, currently intended for demonstration and feedback.',
   },
 ]
 
 const capabilityGroups = [
   {
-    title: 'Viewing',
+    title: 'Study Review',
     items: [
-      'DICOM file and folder import',
-      'Main 2D VTK slice viewer',
-      'DICOM-derived WL/WW defaults with controlled fallback presets',
-      'Zoom, pan, slice/frame navigation, and crosshair workflows',
+      'Open local DICOM studies from folders or exported media',
+      'Browse patients, studies, and series in one desktop workspace',
+      'Review CT, MR, and XA image data where supported',
+      'Use slice scrolling, cine playback, zoom, pan, and WL/WW controls',
     ],
   },
   {
-    title: 'Measurements',
+    title: 'Annotations',
     items: [
-      'Distance, polyline, angle, and rectangle ROI baseline',
-      'Per-slice and per-frame annotation persistence',
-      'Annotation deletion and review workflows under verification',
-      'Clinical correctness evidence tracked under CAPA-002',
+      'Create distance, polyline, angle, and rectangle ROI annotations',
+      'Keep annotations linked to the correct slice or cine frame',
+      'Review annotated slices from the annotation panel',
+      'Delete annotations when they are no longer needed',
     ],
   },
   {
-    title: 'Advanced Review',
+    title: 'Advanced Viewing',
     items: [
-      'MPR viewing path under active geometry verification',
-      'VTK 3D volume viewing path under active maturation',
-      'Multi-frame XA cine viewing under representative dataset testing',
-      'HU statistics and calcium workflow remain planned, not release-claimed',
+      'Open MPR views for multi-slice CT/MR series',
+      'Use the 3D viewer for volume visualization feedback',
+      'Play supported multi-frame XA cine sequences',
+      'Export selected XA cine or CT/MR slice-series ranges as derived MP4 video',
     ],
   },
   {
-    title: 'Quality Foundation',
+    title: 'Evaluation Safety',
     items: [
-      'Local SQLite persistence with no desktop database credentials',
-      'Original DICOM files remain unmodified',
-      'Audit, crash-log, and CAPA documentation foundation started',
-      'Malformed DICOM handling tracked under CAPA-001',
+      'Original DICOM files are not modified',
+      'Exported videos are marked as derived and non-diagnostic',
+      'Local-first storage avoids a hospital database connection for the demo',
+      'Regulatory and clinical verification work is still in progress',
     ],
   },
 ]
 
 const statusRows = [
   ['Product name', 'Cross Axial Dicom Viewer'],
-  ['Current stage', 'Pre-release demo baseline under development'],
+  ['Current stage', 'Pre-release demo for feedback'],
   ['Current use boundary', 'Education, research, and controlled product evaluation only'],
   ['Regulatory status', 'Not approved for diagnosis or treatment'],
-  ['Current storage', 'Local SQLite metadata, previews, and derived annotations'],
-  ['Source DICOM policy', 'Original DICOM files are treated as canonical input and are not modified'],
+  ['Supported review direction', 'CT, MR, XA cine, MPR, 3D viewing, annotations, and video export'],
+  ['Source DICOM policy', 'Original DICOM files remain unchanged'],
 ]
 
-const stack = [
-  'C++20',
-  'Qt 6',
-  'VTK',
-  'GDCM',
-  'SQLite',
-  'CMake',
-  'Vite',
+const reviewHighlights = [
+  'CT and MR slice review',
+  'XA cine playback',
+  'MPR review',
+  '3D volume preview',
+  'WL/WW presets',
+  'Distance and angle annotations',
+  'ROI annotations',
+  'Derived MP4 video export',
 ]
 
 const roadmap = [
   {
-    phase: 'REL-001 demo baseline',
-    target: 'Target: 2026-05-31',
-    text: 'Stabilize non-diagnostic viewer workflows, package Windows/macOS builds, and record known limitations.',
+    phase: 'Radiologist feedback baseline',
+    target: 'Current focus',
+    text: 'Collect feedback on CT/MR review, XA cine playback, annotations, MPR, 3D viewing, and exported review videos.',
   },
   {
-    phase: 'Verification foundation',
+    phase: 'Internal verification',
     target: 'Next gate',
-    text: 'Complete measurement/MPR correctness tests, corrupted DICOM handling tests, and representative XA cine checks.',
+    text: 'Verify measurement accuracy, MPR geometry, video export behavior, corrupted DICOM handling, and packaging.',
   },
   {
-    phase: 'Regulatory foundation',
+    phase: 'Regulatory preparation',
     target: 'After demo feedback',
-    text: 'Harden SRS, risk controls, CAPA, release evidence, user manual, and traceability before regulated claims.',
+    text: 'Refine intended use, risks, validation evidence, user manual, and traceability before any clinical claim.',
   },
 ]
 
@@ -113,21 +114,22 @@ document.querySelector('#app').innerHTML = `
           </span>
         </a>
         <div class="nav-actions">
+          <a href="#capabilities">Features</a>
           <a href="#status">Status</a>
           <a href="#screenshots">Screenshots</a>
-          <a class="button button-light" href="https://github.com/Gokulakrishh/DicomViewer" target="_blank" rel="noreferrer">GitHub</a>
         </div>
       </nav>
 
       <div class="hero-content" id="top">
-        <p class="eyebrow">Local-first DICOM viewing software</p>
+        <p class="eyebrow">DICOM viewer for controlled evaluation</p>
         <h1 id="page-title">Cross Axial Dicom Viewer</h1>
         <p class="hero-lead">
-          A C++/Qt and VTK-based DICOM viewer focused on controlled development, memory-aware workflows,
-          local SQLite persistence, and a clear path toward SaMD-ready engineering evidence.
+          A desktop DICOM viewer being developed for CT, MRI, and XA cine review workflows, with
+          local study browsing, MPR, 3D visualization, annotations, and derived video export for feedback.
         </p>
         <div class="hero-actions">
-          <a class="button button-primary" href="https://github.com/Gokulakrishh/DicomViewer" target="_blank" rel="noreferrer">Open Repository</a>
+          <a class="button button-primary" href="#workflow">Watch Workflow</a>
+          <a class="button button-secondary" href="#capabilities">Explore Features</a>
           <a class="button button-secondary" href="#screenshots">View Screenshots</a>
         </div>
       </div>
@@ -145,8 +147,8 @@ document.querySelector('#app').innerHTML = `
           <p class="eyebrow">Workflow preview</p>
           <h2>See the viewer in motion</h2>
           <p>
-            A short animated preview helps communicate the desktop workflow better than static screenshots alone:
-            study browsing, image viewing, and interaction panels in the current baseline.
+            The current workflow brings study browsing, image review, slice navigation, annotation panels,
+            and viewer controls into one local desktop application.
           </p>
         </div>
         <figure class="workflow-media">
@@ -158,10 +160,10 @@ document.querySelector('#app').innerHTML = `
       <section class="section" id="status">
         <div class="section-head">
           <p class="eyebrow">Current development status</p>
-          <h2>Pre-release baseline with explicit claim boundaries</h2>
+          <h2>Designed for feedback before clinical claims</h2>
           <p>
-            The project is being developed as local-first DICOM viewing software. The current public-facing position
-            avoids unsupported diagnostic, PACS, AI, or cybersecurity claims while QMS-style evidence matures.
+            The current build is meant to be reviewed by technical users and radiologists for usability feedback.
+            It is not released as a diagnostic workstation and should not be used for clinical decisions.
           </p>
         </div>
 
@@ -178,12 +180,12 @@ document.querySelector('#app').innerHTML = `
           </table>
 
           <div class="quality-panel">
-            <p class="panel-kicker">Quality controls in progress</p>
-            <h3>CAPA and verification gates are now part of the development record.</h3>
+            <p class="panel-kicker">Clinical safety boundary</p>
+            <h3>Useful for evaluation, not for diagnosis.</h3>
             <ul>
-              <li>CAPA-001 tracks malformed or corrupted DICOM decode handling.</li>
-              <li>CAPA-002 tracks missing clinical correctness evidence for measurements and MPR.</li>
-              <li>REL-001 remains non-diagnostic unless evidence and claims are formally updated.</li>
+              <li>Measurements, ROI values, MPR geometry, and 3D views still require formal verification.</li>
+              <li>Video export is derived, non-diagnostic output for review and communication only.</li>
+              <li>Regulatory approval work is planned but not complete.</li>
             </ul>
           </div>
         </div>
@@ -194,7 +196,7 @@ document.querySelector('#app').innerHTML = `
           <p class="eyebrow">Application views</p>
           <h2>Real screenshots from the current viewer</h2>
           <p>
-            These images show the active desktop application direction: main viewing, MPR review, and VTK 3D rendering.
+            These images show the active desktop application direction: main viewing, MPR review, and 3D rendering.
           </p>
         </div>
         <div class="gallery-grid">
@@ -213,10 +215,10 @@ document.querySelector('#app').innerHTML = `
       <section class="section" id="capabilities">
         <div class="section-head">
           <p class="eyebrow">Product scope</p>
-          <h2>Built around separable viewer, annotation, and quality layers</h2>
+          <h2>Features for radiology review feedback</h2>
           <p>
-            The current architecture keeps source DICOM data separate from derived annotations and avoids loading heavy
-            pixel data during hierarchy browsing wherever possible.
+            The goal of the current demo is to make common review tasks visible and testable: open studies,
+            inspect slices, play cine, annotate findings, and export derived videos for discussion.
           </p>
         </div>
         <div class="capability-grid">
@@ -231,17 +233,16 @@ document.querySelector('#app').innerHTML = `
         </div>
       </section>
 
-      <section class="section technology-section" id="architecture">
+      <section class="section technology-section" id="review-highlights">
         <div class="section-head">
-          <p class="eyebrow">Architecture</p>
-          <h2>Current technical stack</h2>
+          <p class="eyebrow">Review highlights</p>
+          <h2>What a reviewer can try in the demo</h2>
           <p>
-            The desktop baseline uses Qt and VTK for viewing, GDCM for DICOM handling, and SQLite for local metadata,
-            preview, and derived annotation persistence.
+            The feature set is still under verification, but these workflows are already available for structured feedback.
           </p>
         </div>
         <div class="stack-list">
-          ${stack.map((item) => `<span>${item}</span>`).join('')}
+          ${reviewHighlights.map((item) => `<span>${item}</span>`).join('')}
         </div>
       </section>
 
@@ -263,10 +264,10 @@ document.querySelector('#app').innerHTML = `
 
       <section class="closing-panel">
         <div>
-          <p class="eyebrow">Engineering baseline</p>
-          <h2>Follow the release evidence as the project matures.</h2>
+          <p class="eyebrow">Feedback-ready demo</p>
+          <h2>Built for review, refinement, and later verification.</h2>
         </div>
-        <a class="button button-primary" href="https://github.com/Gokulakrishh/DicomViewer" target="_blank" rel="noreferrer">View on GitHub</a>
+        <a class="button button-primary" href="#capabilities">Review Features</a>
       </section>
     </main>
   </div>
