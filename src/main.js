@@ -7,12 +7,12 @@ const screenshots = [
   {
     src: `${baseUrl}screenshots/main-viewer.png`,
     title: 'Main DICOM viewer',
-    text: 'Patient, study, and series browsing with a focused slice viewer, WL/WW controls, and annotation panels.',
+    text: 'Browse imaging examinations and their image groups, scroll through slices, adjust brightness and contrast, and add annotations.',
   },
   {
     src: `${baseUrl}screenshots/mpr-viewer.png`,
-    title: 'MPR workspace',
-    text: 'Axial, coronal, and sagittal review for CT/MR series, with geometry verification still in progress.',
+    title: 'Multi-planar reconstruction (MPR)',
+    text: 'View a scan across the body, from the front, and from the side. Verification of orientation and geometry is still in progress.',
   },
   {
     src: `${baseUrl}screenshots/3D%20Viewer%20-%20Bone.png`,
@@ -80,6 +80,34 @@ const reviewHighlights = [
   'Derived MP4 video export',
 ]
 
+const glossary = [
+  ['Study & series', 'A study is an imaging examination. It can contain several series: groups of images acquired or reconstructed in a particular way.'],
+  ['CT & MRI', 'Computed tomography (CT) uses X-rays to create cross-sectional images. Magnetic resonance imaging (MRI, also called MR) uses magnetic fields and radio waves.'],
+  ['Slice & MPR', 'A slice is a cross-sectional view through the body. Multi-planar reconstruction (MPR) uses a suitable image volume to show other viewing planes.'],
+  ['XA & cine', 'XA means X-ray angiography, imaging used to visualize blood vessels. Cine playback shows an image sequence over time, like a short movie.'],
+  ['WL/WW', 'Window level and window width control the range of image intensities displayed, changing brightness and contrast to help inspect different structures.'],
+  ['ROI', 'A region of interest is a selected part of an image, such as an area marked for closer inspection or measurement.'],
+]
+
+const partnerTopics = [
+  {
+    title: 'Define the intended use',
+    text: 'Which users, imaging workflows, and use environments should the first product serve? Which activities and claims should remain outside its scope?',
+  },
+  {
+    title: 'Connect risks to evidence',
+    text: 'How should we evaluate wrong-patient or wrong-series selection, incorrect orientation, measurement errors, and misleading exported images?',
+  },
+  {
+    title: 'Shape the quality process',
+    text: 'Help plan requirements, risk documentation, change control, and traceability between requirements and tests while the product is still being shaped.',
+  },
+  {
+    title: 'Plan verification and validation',
+    text: 'Help define representative datasets, acceptance criteria, usability evaluation, and the evidence needed for the intended use and target market.',
+  },
+]
+
 const roadmap = [
   {
     phase: 'Radiologist feedback baseline',
@@ -93,7 +121,7 @@ const roadmap = [
   },
   {
     phase: 'Regulatory preparation',
-    target: 'After demo feedback',
+    target: 'Alongside development',
     text: 'Refine intended use, risks, validation evidence, user manual, and traceability before any clinical claim.',
   },
 ]
@@ -114,9 +142,10 @@ document.querySelector('#app').innerHTML = `
           </span>
         </a>
         <div class="nav-actions">
+          <a href="#dicom-basics">What is DICOM?</a>
           <a href="#capabilities">Features</a>
           <a href="#status">Status</a>
-          <a href="#screenshots">Screenshots</a>
+          <a href="#collaboration">Collaboration</a>
         </div>
       </nav>
 
@@ -124,13 +153,14 @@ document.querySelector('#app').innerHTML = `
         <p class="eyebrow">DICOM viewer for controlled evaluation</p>
         <h1 id="page-title">Cross Axial Dicom Viewer</h1>
         <p class="hero-lead">
-          A desktop DICOM viewer being developed for CT, MRI, and XA cine review workflows, with
-          local study browsing, MPR, 3D visualization, annotations, and derived video export for feedback.
+          Desktop software for opening medical scans, exploring image slices and 3D views,
+          and marking areas for review. We are developing Cross Axial with feedback from
+          clinicians, engineers, and potential quality partners.
         </p>
         <div class="hero-actions">
-          <a class="button button-primary" href="#workflow">Watch Workflow</a>
-          <a class="button button-secondary" href="#capabilities">Explore Features</a>
-          <a class="button button-secondary" href="#screenshots">View Screenshots</a>
+          <a class="button button-primary" href="#dicom-basics">Understand the Viewer</a>
+          <a class="button button-secondary" href="#workflow">Watch Workflow</a>
+          <a class="button button-secondary" href="#collaboration">For Potential Partners</a>
         </div>
       </div>
     </header>
@@ -140,6 +170,62 @@ document.querySelector('#app').innerHTML = `
         <strong>Important boundary:</strong>
         This software is currently intended for education, research, and controlled evaluation only.
         It is not approved for diagnosis, treatment, clinical decision-making, or regulatory-certified use.
+      </section>
+
+      <section class="section" id="dicom-basics" aria-labelledby="basics-title">
+        <div class="section-head">
+          <p class="eyebrow">Start here · No imaging background needed</p>
+          <h2 id="basics-title">What is a DICOM viewer?</h2>
+          <p>
+            A DICOM viewer is software for opening and exploring medical imaging data.
+            It gives a person tools to move through a scan, adjust how images appear,
+            and inspect or annotate structures.
+          </p>
+        </div>
+        <div class="basics-grid">
+          <article class="explainer-card">
+            <span class="concept-label">The standard</span>
+            <h3>DICOM keeps images and context together</h3>
+            <p>
+              DICOM stands for <strong>Digital Imaging and Communications in Medicine</strong>.
+              It defines how medical images and related information are stored and exchanged.
+              That information can include the patient, examination, image orientation, and acquisition details.
+            </p>
+            <p class="source-note">Reference: <a href="https://dicom.nema.org/medical/dicom/current/output/chtml/part01/chapter_1.html">Official DICOM standard overview</a>.</p>
+          </article>
+          <article class="explainer-card">
+            <span class="concept-label">The application</span>
+            <h3>The viewer makes a scan explorable</h3>
+            <p>
+              A scan can contain many images or frames. A viewer organizes them into examinations
+              and image groups, then provides controls for scrolling, playback, contrast, and measurement.
+              Suitable datasets can also be explored in other planes or as a 3D volume.
+            </p>
+            <p>Cross Axial is our desktop application for developing and evaluating these workflows.</p>
+          </article>
+        </div>
+        <aside class="example-note">
+          <h3>A simple example</h3>
+          <p>
+            Imagine a CT examination as a stack of cross-sectional images. A viewer lets you move
+            through that stack one slice at a time, adjust the display, and inspect the same volume
+            from different directions. Cross Axial demonstrates these interactions for evaluation.
+          </p>
+        </aside>
+
+        <div class="imaging-flow" aria-labelledby="imaging-flow-title">
+          <h3 id="imaging-flow-title">Where a viewer fits</h3>
+          <ol class="flow-steps">
+            <li><span class="step-number" aria-hidden="true">01</span><h4>Acquire</h4><p>A scanner creates images during an examination.</p></li>
+            <li><span class="step-number" aria-hidden="true">02</span><h4>Store or export</h4><p>A hospital archive stores the study, or its images are exported as DICOM files.</p></li>
+            <li class="flow-current"><span class="step-number" aria-hidden="true">03</span><h4>Open in a viewer</h4><p>Cross Axial currently opens local files for image exploration and evaluation.</p></li>
+            <li><span class="step-number" aria-hidden="true">04</span><h4>Review and discuss</h4><p>Evaluators inspect the workflow and share feedback on usability and behavior.</p></li>
+          </ol>
+          <p class="flow-caption">
+            A PACS (Picture Archiving and Communication System) manages an imaging archive.
+            The current Cross Axial demo works with local files; it does not require a connection to a hospital archive.
+          </p>
+        </div>
       </section>
 
       <section class="section workflow-section" id="workflow">
@@ -162,7 +248,7 @@ document.querySelector('#app').innerHTML = `
           <p class="eyebrow">Current development status</p>
           <h2>Designed for feedback before clinical claims</h2>
           <p>
-            The current build is meant to be reviewed by technical users and radiologists for usability feedback.
+            The current build is meant to be reviewed by clinicians, engineers, and quality specialists for feedback.
             It is not released as a diagnostic workstation and should not be used for clinical decisions.
           </p>
         </div>
@@ -172,7 +258,7 @@ document.querySelector('#app').innerHTML = `
             <tbody>
               ${statusRows.map(([label, value]) => `
                 <tr>
-                  <th>${label}</th>
+                  <th scope="row">${label}</th>
                   <td>${value}</td>
                 </tr>
               `).join('')}
@@ -202,7 +288,7 @@ document.querySelector('#app').innerHTML = `
         <div class="gallery-grid">
           ${screenshots.map((shot) => `
             <figure class="shot-card">
-              <img src="${shot.src}" alt="${shot.title}" />
+              <img src="${shot.src}" alt="${shot.title}" loading="lazy" />
               <figcaption>
                 <strong>${shot.title}</strong>
                 <span>${shot.text}</span>
@@ -229,6 +315,22 @@ document.querySelector('#app').innerHTML = `
                 ${group.items.map((item) => `<li>${item}</li>`).join('')}
               </ul>
             </article>
+          `).join('')}
+        </div>
+      </section>
+
+      <section class="section" id="imaging-terms" aria-labelledby="terms-title">
+        <div class="section-head">
+          <p class="eyebrow">A short imaging glossary</p>
+          <h2 id="terms-title">The terms behind the features</h2>
+          <p>Open any term for a plain-language explanation.</p>
+        </div>
+        <div class="glossary-list">
+          ${glossary.map(([term, explanation]) => `
+            <details>
+              <summary>${term}</summary>
+              <p>${explanation}</p>
+            </details>
           `).join('')}
         </div>
       </section>
@@ -262,12 +364,40 @@ document.querySelector('#app').innerHTML = `
         </div>
       </section>
 
+      <section class="section partner-section" id="collaboration" aria-labelledby="partner-title">
+        <div class="section-head">
+          <p class="eyebrow">For potential quality and clinical partners</p>
+          <h2 id="partner-title">Help shape the product and its evidence</h2>
+          <p>
+            We are exploring collaboration with people experienced in Software as a Medical Device (SaMD)
+            quality assurance and clinical workflows. The immediate conversation is about intended use,
+            product risks, and how to build a credible evaluation process around this early viewer.
+          </p>
+        </div>
+        <div class="capability-grid partner-topics">
+          ${partnerTopics.map((topic) => `
+            <article class="capability-card">
+              <h3>${topic.title}</h3>
+              <p>${topic.text}</p>
+            </article>
+          `).join('')}
+        </div>
+        <div class="discussion-note">
+          <h3>A starting point for a conversation</h3>
+          <p>
+            After reviewing the workflow and current limitations, which use case would you scope first,
+            and what evidence would you need to assess it? We are open to discussing an advisory role
+            or a longer-term collaboration as the project develops.
+          </p>
+        </div>
+      </section>
+
       <section class="closing-panel">
         <div>
-          <p class="eyebrow">Feedback-ready demo</p>
-          <h2>Built for review, refinement, and later verification.</h2>
+          <p class="eyebrow">An early product, open to collaboration</p>
+          <h2>Explore the viewer. Help define what comes next.</h2>
         </div>
-        <a class="button button-primary" href="#capabilities">Review Features</a>
+        <a class="button button-primary" href="#collaboration">Explore Collaboration</a>
       </section>
     </main>
   </div>
